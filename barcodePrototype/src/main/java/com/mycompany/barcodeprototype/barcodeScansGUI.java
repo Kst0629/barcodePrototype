@@ -177,7 +177,7 @@ public class barcodeScansGUI extends javax.swing.JFrame {
         button.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                new Database(label.getText(),text.getText());
+                new Database(text.getText());
                   frame.dispose();
             }
         });

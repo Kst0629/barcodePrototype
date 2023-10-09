@@ -25,7 +25,7 @@ public class BarcodePrototype {
         
         try{
             String randCode = generator.randomCode();
-            String path = "/Users/vince-kong/Documents/Barcodes/barcode.jpg";
+            String path = "/Users/vince-kong/Documents/Barcodes/randCode.jpg";
             
             Code128Writer cWriter = new Code128Writer();
             BitMatrix matrix = cWriter.encode(randCode, BarcodeFormat.CODE_128, 100, 100);

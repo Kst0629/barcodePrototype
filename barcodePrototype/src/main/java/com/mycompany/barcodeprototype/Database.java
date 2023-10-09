@@ -22,22 +22,22 @@ public class Database {
         connectToDatabase();
     }
     
-    public Database(String barcode, String name){
-        addNewItem(barcode,name);
+    public Database(String barcode){
+        addNewItem(barcode);
     }
     
     private void connectToDatabase() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/avscan", "root", "Y6wx4k6xz!");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "AUT4events_");
             System.out.println("Connected to Database");
 //here sonoo is database name, root is username and password  
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from ITEMS");
+            ResultSet rs = stmt.executeQuery("select * from Barcodes");
             while (rs.next()) {
                 System.out.println(rs.getLong(1) + "  " + rs.getString(2));
-                Data item = new Data(rs.getString(1), rs.getString(2));
-                this.items.add(item);
+                Data barcode = new Data(rs.getString(1), rs.getString(2));
+                this.items.add(barcode);
             }
             con.close();
         } catch (Exception e) {
@@ -47,17 +47,17 @@ public class Database {
         }
     }
     
-    private void addNewItem(String barcode, String name){
+    private void addNewItem(String barcode){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/avscan", "root", "Y6wx4k6xz!");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "AUT4events_");
             System.out.println("Connected to Database");
 //here sonoo is database name, root is username and password  
             Statement stmt = con.createStatement();
-            PreparedStatement prepStmt = con.prepareStatement("insert into items (itemID, itemName)"
-                                               +" values (?, ?)");
+            PreparedStatement prepStmt = con.prepareStatement("insert into Barcodes (barcodes)"
+                                               +" values (?)");
             prepStmt.setString(1, barcode);
-            prepStmt.setString(2, name);
+//            prepStmt.setString(2, name);
             prepStmt.execute();
             //ResultSet rs = stmt.executeQuery("select * from ITEMS");
             /*while (rs.next()) {
