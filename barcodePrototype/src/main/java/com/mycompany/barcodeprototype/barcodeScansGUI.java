@@ -4,19 +4,28 @@
  */
 package com.mycompany.barcodeprototype;
 
+import java.awt.event.ActionListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.oned.Code128Writer;
+import java.awt.event.KeyEvent;
 import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author vince-kong
  */
 public class barcodeScansGUI extends javax.swing.JFrame {
+
     private String randCode;
     private BitMatrix matrix;
+
     /**
      * Creates new form barcodeScansGUI
      */
@@ -37,6 +46,8 @@ public class barcodeScansGUI extends javax.swing.JFrame {
         generateBarcode = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        addButton = new javax.swing.JButton();
+        checkButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +65,20 @@ public class barcodeScansGUI extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        checkButton.setText("Check");
+        checkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,12 +86,18 @@ public class barcodeScansGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(generateBarcode)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(displayBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(generateBarcode)
+                        .addGap(185, 185, 185)
+                        .addComponent(addButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkButton)
+                        .addGap(96, 96, 96))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,7 +110,10 @@ public class barcodeScansGUI extends javax.swing.JFrame {
                         .addGap(71, 71, 71)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(44, 44, 44)
-                .addComponent(generateBarcode)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generateBarcode)
+                    .addComponent(addButton)
+                    .addComponent(checkButton))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -88,26 +122,89 @@ public class barcodeScansGUI extends javax.swing.JFrame {
 
     private void generateBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBarcodeActionPerformed
         // TODO add your handling code here:
-                // TODO add your handling code here:
-                // TODO add your handling code here:
-    BarcodePrototype generator = new BarcodePrototype();// this object calls the functions from the other java file. 
-    randCode = generator.randomCode();
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        BarcodePrototype generator = new BarcodePrototype();// this object calls the functions from the other java file. 
+        randCode = generator.randomCode();
 //        String path = "/Users/vince-kong/Documents/Barcodes/barcode.jpg";
-    Code128Writer cWriter = new Code128Writer();
-        try{
+        Code128Writer cWriter = new Code128Writer();
+        try {
             matrix = cWriter.encode(randCode, BarcodeFormat.CODE_128, 300, 200);
             Icon icon = generator.convertBarcode(matrix); // Call the method on 'generator'
-            displayBarcode.setIcon(icon);  
-            
-        }  catch(Exception e) {
+            displayBarcode.setIcon(icon);
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "There was an error while generating!");
-        }   
+        }
     }//GEN-LAST:event_generateBarcodeActionPerformed
+
+    //create new frame for adding new data to database
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+        String barcode = jTextArea1.getText();
+        //AddItew newItem = new AddItew();
+        //NewItem adding = new NewItem();
+        //String temp = adding.open(barcode);
+        
+        JFrame frame = new JFrame("Add new Item");
+        JLabel label = new JLabel(barcode);
+        JTextArea text = new JTextArea();
+        JButton button = new JButton("Save");
+
+        label.setText(barcode);
+        label.setSize(200, 100);
+        label.setBounds(10, 10, 200, 100);
+
+        text.setSize(200, 100);
+        text.setLocation(100, 200);
+
+        button.setSize(200, 200);
+        button.setLocation(150, 400);
+        
+//        ActionListener listener = new actionperformclass();
+        
+
+        frame.setSize(500, 500);
+        JPanel panel = new JPanel();
+
+        panel.add(label);
+        panel.add(text);
+        panel.add(button);
+        frame.add(panel);
+
+        frame.setVisible(true);
+        //button.addActionListener(listener);
+        button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                new Database(label.getText(),text.getText());
+                  frame.dispose();
+            }
+        });
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButtonActionPerformed
+        // TODO add your handling code here:
+        String barcode = jTextArea1.getText();
+        data = new Database();
+        for (int i = 0; i < data.items.size(); i++) {
+            String id = data.items.get(i).id;
+            if (barcode.equals(id)) {
+                JOptionPane.showMessageDialog(this, barcode + " " + data.items.get(i).Name);
+                break;
+            } else if (i == data.items.size() - 1) {
+                JOptionPane.showMessageDialog(this, barcode + " barcode not found");
+            }
+        }
+    }//GEN-LAST:event_checkButtonActionPerformed
+
+    public Database data = new Database();
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -140,6 +237,8 @@ public class barcodeScansGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton checkButton;
     private javax.swing.JLabel displayBarcode;
     private javax.swing.JButton generateBarcode;
     private javax.swing.JScrollPane jScrollPane1;
