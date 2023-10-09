@@ -28,7 +28,7 @@ public class BarcodePrototype {
             String path = "/Users/vince-kong/Documents/Barcodes/barcode.jpg";
             
             Code128Writer cWriter = new Code128Writer();
-            BitMatrix matrix = cWriter.encode(randCode, BarcodeFormat.CODE_128, 500, 200);
+            BitMatrix matrix = cWriter.encode(randCode, BarcodeFormat.CODE_128, 100, 100);
             
             MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));
 
