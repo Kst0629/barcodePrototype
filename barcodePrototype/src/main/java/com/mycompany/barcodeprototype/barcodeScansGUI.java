@@ -48,6 +48,7 @@ public class barcodeScansGUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         addButton = new javax.swing.JButton();
         checkButton = new javax.swing.JButton();
+        seachButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,22 +80,33 @@ public class barcodeScansGUI extends javax.swing.JFrame {
             }
         });
 
+        seachButton.setText("Search");
+        seachButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seachButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(displayBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(generateBarcode)
                         .addGap(185, 185, 185)
                         .addComponent(addButton)
+                        .addGap(70, 70, 70)
+                        .addComponent(seachButton))
+                    .addComponent(displayBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(checkButton)
                         .addGap(96, 96, 96))))
@@ -113,7 +125,8 @@ public class barcodeScansGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(generateBarcode)
                     .addComponent(addButton)
-                    .addComponent(checkButton))
+                    .addComponent(checkButton)
+                    .addComponent(seachButton))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -198,6 +211,53 @@ public class barcodeScansGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkButtonActionPerformed
 
+    private void seachButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seachButtonActionPerformed
+        // TODO add your handling code here:
+        String barcode = jTextArea1.getText();
+        //AddItew newItem = new AddItew();
+        //NewItem adding = new NewItem();
+        //String temp = adding.open(barcode);
+        
+        JFrame frame = new JFrame("Add new Item");
+        JLabel label = new JLabel(barcode);
+        JButton button = new JButton("Close");
+        
+        label.setText("<html>");
+        for (int i =0; i<data.items.size();i++){
+            if(data.items.get(i).Name.contains(barcode)||data.items.get(i).id.contains(barcode)){
+                label.setText(label.getText()+"<br/>"+data.items.get(i).id+" : "+ data.items.get(i).Name);
+            }
+        }
+        label.setText(label.getText()+"</html>");
+
+        //Adding Suggestion 
+        label.setSize(200, 100);
+        label.setBounds(10, 10, 200, 100);
+
+
+        button.setSize(200, 200);
+        button.setLocation(150, 400);
+        
+//        ActionListener listener = new actionperformclass();
+        
+
+        frame.setSize(500, 500);
+        JPanel panel = new JPanel();
+
+        panel.add(label);
+        panel.add(button);
+        frame.add(panel);
+
+        frame.setVisible(true);
+        //button.addActionListener(listener);
+        button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  frame.dispose();
+            }
+        });
+    }//GEN-LAST:event_seachButtonActionPerformed
+
     public Database data = new Database();
 
     /**
@@ -243,5 +303,6 @@ public class barcodeScansGUI extends javax.swing.JFrame {
     private javax.swing.JButton generateBarcode;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton seachButton;
     // End of variables declaration//GEN-END:variables
 }
