@@ -28,8 +28,8 @@ public class Database {
     
     private void connectToDatabase() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/avscan", "root", "Y6wx4k6xz!");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql", "root", "AUT4events_!");
             System.out.println("Connected to Database");
 //here sonoo is database name, root is username and password  
             Statement stmt = con.createStatement();
@@ -49,8 +49,8 @@ public class Database {
     
     private void addNewItem(String barcode, String name){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/avscan", "root", "Y6wx4k6xz!");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql", "root", "AUT4events_!");
             System.out.println("Connected to Database");
 //here sonoo is database name, root is username and password  
             Statement stmt = con.createStatement();
